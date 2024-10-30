@@ -8,10 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import recipes.recipe.Recipe;
 import recipes.recipe.RecipeRepository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 @Configuration
 public class LoadDatabase {
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
