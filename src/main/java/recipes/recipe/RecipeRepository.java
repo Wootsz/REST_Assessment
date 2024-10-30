@@ -2,19 +2,22 @@ package recipes.recipe;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
-    @Query("select r from Recipe r where r.isVegetarian = true")
-    List<Recipe> findByIsVegetarian(Boolean isVegetarian);
+    @Query("SELECT r FROM Recipe r " +
+            "WHERE (:isVegetarian IS NULL OR r.isVegetarian = :isVegetarian) " +
+            "AND (:amountOfServings IS NULL OR r.amountOfServings = :amountOfServings) " +
+            "AND (:instructions IS NULL OR r.instructions LIKE CONCAT('%', :instructions, '%')) " +
+            "AND (:containsIngredient IS NULL OR r.ingredients LIKE CONCAT('%', :containsIngredient, '%')) " +
+            "AND (:doesNotContainIngredient IS NULL OR r.ingredients NOT LIKE CONCAT('%', :doesNotContainIngredient, '%')) ")
+    List<Recipe> findByCriteria(
+            @Param("isVegetarian") Boolean isVegetarian,
+            @Param("amountOfServings") Integer amountOfServings,
+            @Param("instructions") String instructions,
+            @Param("containsIngredient") String containsIngredient,
+            @Param("doesNotContainIngredient") String doesNotContainIngredient);
 
-    @Query("select r from Recipe r where r.amountOfServings = ?1")
-    List<Recipe> findByAmountOfServings(int amountOfServings);
-
-//    @Query("select r from Recipe r where ?1 = any( r.ingredients )")
-//    List<Recipe> findByContainsIngredient(String ingredient);
-//
-//    @Query("select r from Recipe r where not ?1 = any( r.ingredients )")
-//    List<Recipe> findByDoesNotContainIngredient(String ingredient);
 }

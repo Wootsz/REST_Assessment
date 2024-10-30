@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.parser.Entity;
+import java.io.Console;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,18 +43,33 @@ public class RecipeController {
 
     /**
      * Retrieve all recipes adhering to the specified filters
-     * @return A Collectionmodel of Recipes as EntityModels
+     * @param name The name of the recipe (currently unused)
+     * @param amountOfServings The amount of servings of the recipe
+     * @param doesNotContainIngredient A string that should NOT be present in the ingredients
+     * @param containsIngredient A string that SHOULD be present in the ingredients
+     * @param isVegetarian Whether the recipe should be vegetarian or not
+     * @param containsInstruction A string that SHOULD be in the instructions
+     * @return A Collection of Recipes as EntityModels
      */
-//    @GetMapping("/recipes")
-//    CollectionModel<EntityModel<Recipe>> allFiltered() {
-//
-//        List<EntityModel<Recipe>> recipes = recipeRepository.findBy().stream()
-//                .map(assembler::toModel)
-//                .collect(Collectors.toList());
-//
-//        return CollectionModel.of(recipes,
-//                linkTo(methodOn(RecipeController.class).all()).withSelfRel());
-//    }
+    @GetMapping("/recipes/filter")
+    CollectionModel<EntityModel<Recipe>> filteredRecipes(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Integer amountOfServings,
+            @RequestParam(required = false) String doesNotContainIngredient,
+            @RequestParam(required = false) String containsIngredient,
+            @RequestParam(required = false) Boolean isVegetarian,
+            @RequestParam(required = false) String containsInstruction) {
+
+        List<EntityModel<Recipe>> recipes =
+            recipeRepository
+                .findByCriteria(isVegetarian, amountOfServings, containsInstruction, containsIngredient, doesNotContainIngredient)
+                .stream()
+                .map(assembler::toModel)
+                .collect(Collectors.toList());
+
+        return CollectionModel.of(recipes,
+                linkTo(methodOn(RecipeController.class).all()).withSelfRel());
+    }
 
     /**
      * Retrieve a specific recipe from the database

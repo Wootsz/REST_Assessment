@@ -12,8 +12,8 @@ public class Recipe {
 
     private @Id @GeneratedValue Long id;
     private String name;
-    private int amountOfServings;
-    private String[] ingredients;
+    private Integer amountOfServings;
+    @Column(length = 1000) private String ingredients;
     private Boolean isVegetarian;
     @Column(length = 1000) private String instructions;
 
@@ -27,7 +27,7 @@ public class Recipe {
      * @param isVegetarian Whether this dish is vegetarian or not
      * @param instructions The instructions to make the recipe
      */
-    public Recipe(String name, int amountOfServings, String[] ingredients, Boolean isVegetarian, String instructions) {
+    public Recipe(String name, Integer amountOfServings, String ingredients, Boolean isVegetarian, String instructions) {
         this.name = name;
         this.amountOfServings = amountOfServings;
         this.ingredients = ingredients;
@@ -43,11 +43,11 @@ public class Recipe {
         return this.name;
     }
 
-    public int getAmountOfServings() {
+    public Integer getAmountOfServings() {
         return this.amountOfServings;
     }
 
-    public String[] getIngredients() {
+    public String getIngredients() {
         return this.ingredients;
     }
 
@@ -67,11 +67,11 @@ public class Recipe {
         this.name = name;
     }
 
-    public void setAmountOfServings(int amountOfServings) {
+    public void setAmountOfServings(Integer amountOfServings) {
         this.amountOfServings = amountOfServings;
     }
 
-    public void setIngredients(String[] ingredients) {
+    public void setIngredients(String ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -100,13 +100,13 @@ public class Recipe {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.name, this.amountOfServings, Arrays.hashCode(this.ingredients), this.isVegetarian, this.instructions);
+        return Objects.hash(this.id, this.name, this.amountOfServings, this.ingredients, this.isVegetarian, this.instructions);
     }
 
     @Override
     public String toString() {
         return "Recipe{" + "id=" + this.id + ", name='" + this.name + '\''
-                + ", amountOfServing='" + this.amountOfServings + '\'' + ", ingredients='" + Arrays.toString(this.ingredients) + '\''
+                + ", amountOfServing='" + this.amountOfServings + '\'' + ", ingredients='" + this.ingredients + '\''
                 + ", isVegetarian='" + this.isVegetarian + '\'' + ", instructions='" + this.instructions + '\'' + '}';
     }
 }
