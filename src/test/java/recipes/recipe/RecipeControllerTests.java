@@ -48,4 +48,19 @@ public class RecipeControllerTests {
                 .andExpect(jsonPath("._embedded.recipes").isNotEmpty())
                 .andExpect(jsonPath("._embedded.recipes[0].name").value("Recipe1"));
     }
+
+    @Test
+    void filteredRecipesTest2() throws Exception {
+
+        when(recipeRepository.findByCriteria(false, 4, "Boil", "potato", null))
+                .thenReturn(List.of());
+
+        mockMvc.perform(get("/recipes/filter")
+                        .param("isVegetarian", "false")
+                        .param("amountOfServings", "4")
+                        .param("containsInstruction", "Boil")
+                        .param("containsIngredient", "potato"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("._embedded.recipes").isEmpty());
+    }
 }
