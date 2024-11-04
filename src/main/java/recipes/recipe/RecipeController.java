@@ -24,7 +24,7 @@ public class RecipeController {
     }
 
     /**
-     * Retrieve all recipies from the database
+     * Retrieve all recipes from the database
      * @return A Collectionmodel of all Recipes as EntityModels
      */
     @GetMapping("/recipes")
@@ -71,7 +71,7 @@ public class RecipeController {
     /**
      * Retrieve a specific recipe from the database
      * @param id The id of the recipe
-     * @return An Entitymodel for the Recipe
+     * @return An EntityModel for the Recipe
      */
     @GetMapping("/recipes/{id}")
     EntityModel<Recipe> one(@PathVariable Long id) {
@@ -98,10 +98,10 @@ public class RecipeController {
     }
 
     /**
-     * Replace (/update) a recipe in the database by a new one
+     * Replace(/update) a recipe in the database by a new one
      * @param newRecipe The new recipe
      * @param id The id of the old recipe to be updated
-     * @return A ReponseEntity
+     * @return A ResponseEntity
      */
     @PutMapping("/recipes/{id}")
     ResponseEntity<?> replaceRecipe(@RequestBody Recipe newRecipe, @PathVariable Long id) {
