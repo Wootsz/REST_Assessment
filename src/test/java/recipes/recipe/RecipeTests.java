@@ -53,12 +53,21 @@ public class RecipeTests {
     public void Recipe_Equals_Test() {
         Recipe recipe1 = new Recipe("Recipe", 4, "potato\ncarrot", true, "Boil potatoes");
         Recipe recipe2 = new Recipe("Recipe", 4, "potato\ncarrot", true, "Boil potatoes");
+        Recipe recipe3 = new Recipe("Recipe3", 5, "potato", false, "Eat potatoes");
+
+        recipeRepository.save(recipe1);
+        recipeRepository.save(recipe2);
+        recipeRepository.save(recipe3);
 
         Boolean recipe1EqualsRecipe1 = recipe1.equals(recipe1);
         Boolean recipe1EqualsRecipe2 = recipe1.equals(recipe2);
+        Boolean recipe1EqualsRecipe3 = recipe1.equals(recipe3);
+        Boolean recipe2EqualsRecipe3 = recipe2.equals(recipe3);
 
         Assertions.assertThat(recipe1EqualsRecipe1).isTrue();
         Assertions.assertThat(recipe1EqualsRecipe2).isFalse();
+        Assertions.assertThat(recipe1EqualsRecipe3).isFalse();
+        Assertions.assertThat(recipe2EqualsRecipe3).isFalse();
     }
 
 }
