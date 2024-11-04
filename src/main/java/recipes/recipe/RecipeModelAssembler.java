@@ -8,7 +8,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
-class RecipeModelAssembler implements RepresentationModelAssembler<Recipe, EntityModel<Recipe>> {
+public class RecipeModelAssembler implements RepresentationModelAssembler<Recipe, EntityModel<Recipe>> {
 
     @Override
     public EntityModel<Recipe> toModel(Recipe recipe) {

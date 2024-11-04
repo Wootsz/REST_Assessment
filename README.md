@@ -1,14 +1,14 @@
 ## Required:
 
-- Docker, for hosting the MySQL database
+- A running instance of Docker, to host the local MySQL database
 
 ## Filters
 The following optional filters can be used when querying recipes:
-* Integer amountOfServings
-* String doesNotContainIngredient
-* String containsIngredient
-* Boolean isVegetarian
-* String containsInstruction
+* amountOfServings :: Integer
+* doesNotContainIngredient :: String
+* containsIngredient :: String
+* isVegetarian :: Boolean
+* containsInstruction :: String
 
 ## Examples of interacting with the database
 
