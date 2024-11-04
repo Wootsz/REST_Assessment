@@ -30,3 +30,10 @@ The following optional filters can be used when querying recipes:
 
 * Delete recipe:
   * curl -v -X DELETE http://localhost:8080/recipes/3 | json_pp
+
+
+## Architectural choices
+
+The application is built using the Spring Boot framework. 
+All architectural choices were made in line with the Spring Boot standard practises.
+See, for instance, https://spring.io/guides/tutorials/rest. 
